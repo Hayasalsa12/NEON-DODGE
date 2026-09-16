@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dodge — Cosmic Rush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-wrapper">
+
+        <header class="top-bar">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <div>
+                    <h1>NEON DODGE</h1>
+                    <p>COSMIC RUSH</p>
+                </div>
+            </div>
+
+            <button id="pauseBtn" class="pause-btn">Ⅱ</button>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <span>⭐ SCORE</span>
+                <strong id="score">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>🏆 BEST</span>
+                <strong id="highScore">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>🚀 LEVEL</span>
+                <strong id="level">1</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>❤️ LIFE</span>
+                <strong id="lives">3</strong>
+            </div>
+        </div>
+
+        <main class="game-section">
+
+            <div id="gameArea" class="game-area">
+
+                <div class="stars"></div>
+
+                <div id="startScreen" class="screen">
+                    <div class="title-icon">🚀</div>
+                    <h2>NEON DODGE</h2>
+                    <p>Survive the cosmic storm!</p>
+
+                    <div class="instruction">
+                        <span>←</span>
+                        <span>MOVE</span>
+                        <span>→</span>
+                    </div>
+
+                    <button id="startBtn" class="main-btn">
+                        START GAME
+                    </button>
+                </div>
+
+                <div id="pauseScreen" class="screen hidden">
+                    <div class="title-icon">Ⅱ</div>
+                    <h2>PAUSED</h2>
+                    <p>Take a little break.</p>
+
+                    <button id="continueBtn" class="main-btn">
+                        CONTINUE
+                    </button>
+                </div>
+
+                <div id="gameOverScreen" class="screen hidden">
+                    <div class="title-icon">💥</div>
+                    <h2>GAME OVER</h2>
+                    <p>Your final score</p>
+
+                    <div id="finalScore" class="final-score">0</div>
+
+                    <button id="restartBtn" class="main-btn">
+                        PLAY AGAIN
+                    </button>
+                </div>
+
+                <div id="player" class="player">
+                    <div class="player-window"></div>
+                    <div class="player-wing left"></div>
+                    <div class="player-wing right"></div>
+                    <div class="player-fire"></div>
+                </div>
+
+                <div id="combo" class="combo"></div>
+                <div id="levelUp" class="level-up"></div>
+
+            </div>
+
+            <div class="mobile-controls">
+                <button id="leftBtn">←</button>
+                <button id="rightBtn">→</button>
+            </div>
+
+        </main>
+
+        <footer class="bottom-info">
+            <span>🎮 A / D atau ← / → untuk bergerak</span>
+            <span>•</span>
+            <span>💰 Ambil koin</span>
+            <span>•</span>
+            <span>☄️ Hindari meteor</span>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
