@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 
+/* Variabel warna yang digunakan di seluruh game */
 :root {
     --blue: #2d3a47;
     --dark: #18232d;
@@ -14,12 +15,16 @@
     --yellow: #ffd866;
 }
 
+
+/* Menghilangkan margin dan padding bawaan browser */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+/* Mengatur tampilan dasar halaman */
 body {
     min-height: 100vh;
     background: var(--blue);
@@ -32,11 +37,15 @@ body {
     overflow-x: hidden;
 }
 
+
+/* Pembungkus seluruh game */
 .game-wrapper {
     width: 100%;
     max-width: 1100px;
 }
 
+
+/* Bagian paling atas: logo dan tombol pause */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -44,12 +53,16 @@ body {
     margin-bottom: 18px;
 }
 
+
+/* Mengatur posisi logo dan tulisan */
 .logo {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
+
+/* Kotak ikon logo */
 .logo-icon {
     width: 48px;
     height: 48px;
@@ -63,18 +76,24 @@ body {
     box-shadow: 0 0 25px rgba(247, 200, 211, 0.3);
 }
 
+
+/* Judul NEON DODGE */
 .logo h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 22px;
     letter-spacing: 2px;
 }
 
+
+/* Tulisan COSMIC RUSH */
 .logo p {
     color: var(--pink);
     font-size: 10px;
     letter-spacing: 5px;
 }
 
+
+/* Tombol pause */
 .pause-btn {
     width: 45px;
     height: 45px;
@@ -87,10 +106,14 @@ body {
     transition: 0.2s;
 }
 
+
+/* Tampilan tombol pause ketika kursor diarahkan */
 .pause-btn:hover {
     background: rgba(255, 255, 255, 0.16);
 }
 
+
+/* Membuat 4 kotak statistik sejajar */
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -98,6 +121,8 @@ body {
     margin-bottom: 15px;
 }
 
+
+/* Tampilan kotak Score, Best, Level, dan Life */
 .stat-card {
     background: rgba(255, 247, 230, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -106,6 +131,8 @@ body {
     backdrop-filter: blur(10px);
 }
 
+
+/* Label pada setiap statistik */
 .stat-card span {
     display: block;
     color: var(--sky);
@@ -114,16 +141,22 @@ body {
     margin-bottom: 2px;
 }
 
+
+/* Angka Score, Best, Level, dan Life */
 .stat-card strong {
     font-family: 'Orbitron', sans-serif;
     font-size: 20px;
     color: var(--cream);
 }
 
+
+/* Bagian utama permainan */
 .game-section {
     width: 100%;
 }
 
+
+/* Area tempat game dimainkan */
 .game-area {
     position: relative;
     height: 600px;
@@ -138,6 +171,8 @@ body {
         inset 0 0 80px rgba(114, 229, 255, 0.05);
 }
 
+
+/* Membuat grid futuristik di background game */
 .game-area::before {
     content: "";
     position: absolute;
@@ -149,6 +184,8 @@ body {
     animation: gridMove 5s linear infinite;
 }
 
+
+/* Animasi pergerakan grid */
 @keyframes gridMove {
     from {
         background-position: 0 0;
@@ -159,6 +196,8 @@ body {
     }
 }
 
+
+/* Membuat efek bintang di background */
 .stars {
     position: absolute;
     inset: 0;
@@ -171,6 +210,8 @@ body {
     animation: starsMove 7s linear infinite;
 }
 
+
+/* Animasi bintang bergerak */
 @keyframes starsMove {
     from {
         transform: translateY(-30px);
@@ -181,6 +222,8 @@ body {
     }
 }
 
+
+/* Tampilan layar Start, Pause, dan Game Over */
 .screen {
     position: absolute;
     inset: 0;
@@ -195,10 +238,14 @@ body {
     padding: 20px;
 }
 
+
+/* Menyembunyikan screen jika memiliki class hidden */
 .screen.hidden {
     display: none;
 }
 
+
+/* Kotak ikon pada screen */
 .title-icon {
     width: 85px;
     height: 85px;
@@ -213,6 +260,8 @@ body {
     box-shadow: 0 0 35px rgba(247, 200, 211, 0.15);
 }
 
+
+/* Judul pada Start, Pause, dan Game Over */
 .screen h2 {
     font-family: 'Orbitron', sans-serif;
     font-size: 35px;
@@ -220,11 +269,15 @@ body {
     color: var(--cream);
 }
 
+
+/* Deskripsi pada screen */
 .screen p {
     color: var(--sky);
     margin-top: 8px;
 }
 
+
+/* Petunjuk tombol gerak */
 .instruction {
     display: flex;
     align-items: center;
@@ -235,6 +288,8 @@ body {
     letter-spacing: 2px;
 }
 
+
+/* Tampilan tombol panah kiri dan kanan */
 .instruction span:first-child,
 .instruction span:last-child {
     width: 40px;
@@ -248,6 +303,8 @@ body {
     color: var(--cyan);
 }
 
+
+/* Tombol Start, Continue, dan Play Again */
 .main-btn {
     border: none;
     padding: 15px 35px;
@@ -262,11 +319,15 @@ body {
     transition: 0.2s;
 }
 
+
+/* Efek tombol ketika kursor diarahkan */
 .main-btn:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 30px rgba(247, 200, 211, 0.35);
 }
 
+
+/* Bentuk dan posisi pesawat pemain */
 .player {
     position: absolute;
     width: 54px;
@@ -278,6 +339,8 @@ body {
     transition: left 0.05s linear;
 }
 
+
+/* Bentuk utama badan pesawat */
 .player::before {
     content: "";
     position: absolute;
@@ -290,6 +353,8 @@ body {
     filter: drop-shadow(0 0 8px rgba(114, 229, 255, 0.8));
 }
 
+
+/* Jendela pesawat */
 .player-window {
     position: absolute;
     width: 14px;
@@ -302,6 +367,8 @@ body {
     box-shadow: 0 0 12px var(--cyan);
 }
 
+
+/* Bentuk sayap pesawat */
 .player-wing {
     position: absolute;
     width: 23px;
@@ -311,16 +378,22 @@ body {
     z-index: -1;
 }
 
+
+/* Sayap kiri */
 .player-wing.left {
     left: 0;
     clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
+
+/* Sayap kanan */
 .player-wing.right {
     right: 0;
     clip-path: polygon(0 0, 100% 100%, 0 100%);
 }
 
+
+/* Api mesin pesawat */
 .player-fire {
     position: absolute;
     width: 10px;
@@ -333,6 +406,8 @@ body {
     animation: fire 0.1s infinite alternate;
 }
 
+
+/* Animasi api pesawat */
 @keyframes fire {
     from {
         height: 18px;
@@ -343,6 +418,8 @@ body {
     }
 }
 
+
+/* Tampilan meteor */
 .meteor {
     position: absolute;
     border-radius: 50%;
@@ -351,6 +428,8 @@ body {
     box-shadow: 0 0 15px rgba(180, 106, 114, 0.65);
 }
 
+
+/* Membuat efek cahaya pada meteor */
 .meteor::before {
     content: "";
     position: absolute;
@@ -362,6 +441,8 @@ body {
     background: rgba(255, 255, 255, 0.25);
 }
 
+
+/* Tampilan koin */
 .coin {
     position: absolute;
     width: 28px;
@@ -374,6 +455,8 @@ body {
     animation: coinSpin 0.8s linear infinite;
 }
 
+
+/* Simbol bintang di dalam koin */
 .coin::after {
     content: "✦";
     position: absolute;
@@ -385,6 +468,8 @@ body {
     font-size: 13px;
 }
 
+
+/* Animasi koin berputar */
 @keyframes coinSpin {
     50% {
         transform: scaleX(0.35);
@@ -395,6 +480,8 @@ body {
     }
 }
 
+
+/* Partikel efek ketika terjadi aksi tertentu */
 .particle {
     position: absolute;
     width: 6px;
@@ -405,6 +492,8 @@ body {
     animation: particleFly 0.5s forwards;
 }
 
+
+/* Animasi partikel menyebar */
 @keyframes particleFly {
     to {
         transform: translate(var(--x), var(--y)) scale(0);
@@ -412,6 +501,8 @@ body {
     }
 }
 
+
+/* Tampilan tulisan combo */
 .combo {
     position: absolute;
     left: 50%;
@@ -426,10 +517,14 @@ body {
     pointer-events: none;
 }
 
+
+/* Menampilkan animasi combo */
 .combo.show {
     animation: comboPop 0.7s ease;
 }
 
+
+/* Animasi munculnya combo */
 @keyframes comboPop {
     0% {
         transform: translate(-50%, -50%) scale(0);
@@ -447,6 +542,8 @@ body {
     }
 }
 
+
+/* Tampilan pemberitahuan ketika level naik */
 .level-up {
     position: absolute;
     top: 45%;
@@ -460,10 +557,14 @@ body {
     pointer-events: none;
 }
 
+
+/* Menjalankan animasi level up */
 .level-up.show {
     animation: levelAnimation 1s ease;
 }
 
+
+/* Animasi tulisan LEVEL UP */
 @keyframes levelAnimation {
     0% {
         opacity: 0;
@@ -481,6 +582,8 @@ body {
     }
 }
 
+
+/* Tampilan skor akhir ketika Game Over */
 .final-score {
     font-family: 'Orbitron', sans-serif;
     font-size: 55px;
@@ -489,6 +592,8 @@ body {
     text-shadow: 0 0 20px rgba(247, 200, 211, 0.5);
 }
 
+
+/* Tombol kontrol khusus perangkat mobile */
 .mobile-controls {
     display: none;
     grid-template-columns: 1fr 1fr;
@@ -496,6 +601,8 @@ body {
     margin-top: 15px;
 }
 
+
+/* Tampilan tombol kiri dan kanan di mobile */
 .mobile-controls button {
     height: 55px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -505,6 +612,8 @@ body {
     font-size: 25px;
 }
 
+
+/* Informasi kontrol di bagian bawah game */
 .bottom-info {
     display: flex;
     justify-content: center;
@@ -515,48 +624,62 @@ body {
     margin-top: 15px;
 }
 
+
+/* Mengatur tampilan ketika layar berukuran maksimal 700px */
 @media (max-width: 700px) {
+
+    /* Mengurangi jarak tepi pada layar kecil */
     body {
         padding: 12px;
     }
 
+    /* Mengecilkan ukuran judul */
     .logo h1 {
         font-size: 17px;
     }
 
+    /* Mengecilkan ukuran subtitle */
     .logo p {
         font-size: 8px;
     }
 
+    /* Mengurangi jarak antar statistik */
     .stats {
         gap: 7px;
     }
 
+    /* Mengecilkan padding kartu statistik */
     .stat-card {
         padding: 9px;
     }
 
+    /* Mengecilkan tulisan statistik */
     .stat-card span {
         font-size: 8px;
     }
 
+    /* Mengecilkan angka statistik */
     .stat-card strong {
         font-size: 16px;
     }
 
+    /* Mengurangi tinggi area game di HP */
     .game-area {
         height: 520px;
         border-radius: 20px;
     }
 
+    /* Mengecilkan judul screen */
     .screen h2 {
         font-size: 27px;
     }
 
+    /* Menampilkan tombol kontrol kiri dan kanan di HP */
     .mobile-controls {
         display: grid;
     }
 
+    /* Menyembunyikan informasi bawah di HP */
     .bottom-info {
         display: none;
     }

@@ -2,15 +2,21 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <!-- Agar tampilan menyesuaikan ukuran layar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Judul yang muncul di tab browser -->
     <title>Neon Dodge — Cosmic Rush</title>
+    <!-- Menghubungkan HTML dengan file CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+    <!-- Pembungkus seluruh tampilan game -->
     <div class="game-wrapper">
-
+        <!-- Bagian atas game: logo dan tombol pause -->
         <header class="top-bar">
+            <!-- Logo / identitas game -->
             <div class="logo">
                 <span class="logo-icon">✦</span>
                 <div>
@@ -18,106 +24,172 @@
                     <p>COSMIC RUSH</p>
                 </div>
             </div>
-
+            <!-- Tombol untuk menjeda game -->
             <button id="pauseBtn" class="pause-btn">Ⅱ</button>
         </header>
 
+        <!-- Bagian yang menampilkan informasi permainan -->
         <div class="stats">
+            <!-- Menampilkan skor pemain -->
             <div class="stat-card">
                 <span>⭐ SCORE</span>
+                <!-- id="score" akan diubah oleh JavaScript -->
                 <strong id="score">0</strong>
             </div>
-
+            <!-- Menampilkan skor tertinggi -->
             <div class="stat-card">
                 <span>🏆 BEST</span>
+                <!-- High score diatur oleh JavaScript -->
                 <strong id="highScore">0</strong>
             </div>
 
+            <!-- Menampilkan level permainan -->
             <div class="stat-card">
                 <span>🚀 LEVEL</span>
+                <!-- Level akan berubah sesuai skor -->
                 <strong id="level">1</strong>
             </div>
 
+
+            <!-- Menampilkan jumlah nyawa -->
             <div class="stat-card">
                 <span>❤️ LIFE</span>
+                <!-- Nyawa awal pemain adalah 3 -->
                 <strong id="lives">3</strong>
             </div>
         </div>
 
+        <!-- Bagian utama tempat game dimainkan -->
         <main class="game-section">
 
+            <!-- Area permainan -->
             <div id="gameArea" class="game-area">
-
+                <!-- Background bintang -->
                 <div class="stars"></div>
 
+                <!-- LAYAR AWAL GAME -->
                 <div id="startScreen" class="screen">
+
+                    <!-- Ikon pesawat -->
                     <div class="title-icon">🚀</div>
+
+                    <!-- Judul game -->
                     <h2>NEON DODGE</h2>
+
+                    <!-- Deskripsi singkat game -->
                     <p>Survive the cosmic storm!</p>
 
+
+                    <!-- Petunjuk kontrol -->
                     <div class="instruction">
                         <span>←</span>
                         <span>MOVE</span>
                         <span>→</span>
                     </div>
 
+                    <!-- Tombol untuk memulai game -->
                     <button id="startBtn" class="main-btn">
                         START GAME
                     </button>
                 </div>
 
+
+                <!-- LAYAR PAUSE -->
+                <!-- class="hidden" membuat layar ini awalnya tidak terlihat -->
                 <div id="pauseScreen" class="screen hidden">
+
                     <div class="title-icon">Ⅱ</div>
                     <h2>PAUSED</h2>
                     <p>Take a little break.</p>
 
+                    <!-- Tombol melanjutkan game -->
                     <button id="continueBtn" class="main-btn">
                         CONTINUE
                     </button>
                 </div>
 
+
+                <!-- LAYAR GAME OVER -->
                 <div id="gameOverScreen" class="screen hidden">
+
+                    <!-- Ikon ketika permainan berakhir -->
                     <div class="title-icon">💥</div>
+
                     <h2>GAME OVER</h2>
                     <p>Your final score</p>
 
+                    <!-- Menampilkan skor akhir -->
                     <div id="finalScore" class="final-score">0</div>
 
+                    <!-- Tombol untuk memulai permainan kembali -->
                     <button id="restartBtn" class="main-btn">
                         PLAY AGAIN
                     </button>
                 </div>
 
+
+                <!-- PESAWAT PEMAIN -->
                 <div id="player" class="player">
+
+                    <!-- Bagian kaca/jendela pesawat -->
                     <div class="player-window"></div>
+
+                    <!-- Sayap kiri -->
                     <div class="player-wing left"></div>
+
+                    <!-- Sayap kanan -->
                     <div class="player-wing right"></div>
+
+                    <!-- Api/mesin pesawat -->
                     <div class="player-fire"></div>
                 </div>
 
+
+                <!-- Tempat menampilkan combo -->
                 <div id="combo" class="combo"></div>
+
+                <!-- Tempat menampilkan pemberitahuan level naik -->
                 <div id="levelUp" class="level-up"></div>
 
             </div>
-
+            <!-- Tombol kontrol untuk perangkat mobile -->
             <div class="mobile-controls">
+
+                <!-- Tombol bergerak ke kiri -->
                 <button id="leftBtn">←</button>
+
+                <!-- Tombol bergerak ke kanan -->
                 <button id="rightBtn">→</button>
+
             </div>
 
         </main>
 
+
+        <!-- Informasi kontrol dan tujuan permainan -->
         <footer class="bottom-info">
+
+            <!-- Tombol keyboard yang bisa digunakan -->
             <span>🎮 A / D atau ← / → untuk bergerak</span>
+
             <span>•</span>
+
+            <!-- Tujuan: mengambil koin -->
             <span>💰 Ambil koin</span>
+
             <span>•</span>
+
+            <!-- Tujuan: menghindari meteor -->
             <span>☄️ Hindari meteor</span>
+
         </footer>
 
     </div>
 
+
+    <!-- Menghubungkan HTML dengan JavaScript -->
+    <!-- JavaScript yang membuat game menjadi interaktif -->
     <script src="script.js"></script>
+
 </body>
 </html>
-
