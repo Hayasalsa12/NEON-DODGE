@@ -599,3 +599,33 @@ restartBtn.addEventListener("click", startGame);
 // TOMBOL PAUSE DAN CONTINUE
 pauseBtn.addEventListener("click", togglePause);
 continueBtn.addEventListener("click", togglePause);
+
+// SISTEM SUARA SEDERHANA
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    if (type === "coin") {
+        oscillator.frequency.value = 800;
+    } else if (type === "hit") {
+        oscillator.frequency.value = 150;
+    } else if (type === "level") {
+        oscillator.frequency.value = 1000;
+    } else if (type === "gameover") {
+        oscillator.frequency.value = 200;
+    }
+
+    oscillator.start();
+    gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        audioContext.currentTime + 0.3
+    );
+
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
