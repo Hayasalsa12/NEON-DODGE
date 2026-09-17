@@ -1,12 +1,10 @@
 const gameArea = document.getElementById("gameArea");
 const player = document.getElementById("player");
 
-
 // Mengambil screen yang digunakan dalam game
 const startScreen = document.getElementById("startScreen");
 const pauseScreen = document.getElementById("pauseScreen");
 const gameOverScreen = document.getElementById("gameOverScreen");
-
 
 // Mengambil tombol-tombol game
 const startBtn = document.getElementById("startBtn");
@@ -14,11 +12,9 @@ const restartBtn = document.getElementById("restartBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const continueBtn = document.getElementById("continueBtn");
 
-
 // Mengambil tombol kontrol kiri dan kanan
 const leftBtn = document.getElementById("leftBtn");
 const rightBtn = document.getElementById("rightBtn");
-
 
 // Mengambil bagian statistik game
 const scoreElement = document.getElementById("score");
@@ -27,11 +23,67 @@ const levelElement = document.getElementById("level");
 const livesElement = document.getElementById("lives");
 const finalScoreElement = document.getElementById("finalScore");
 
-
 // Mengambil elemen combo dan level up
 const comboElement = document.getElementById("combo");
 const levelUpElement = document.getElementById("levelUp");
 
+// SISTEM SUARA
+// Membuat suara langsung dari JavaScript tanpa file audio
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContextClass();
+
+function playSound(type) {
+    // Mengaktifkan audio jika browser masih menahannya
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    // Menentukan karakter suara berdasarkan kejadian
+    if (type === "coin") {
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(700, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1200,
+            audioContext.currentTime + 0.1
+        );
+    } else if (type === "hit") {
+        oscillator.type = "sawtooth";
+        oscillator.frequency.setValueAtTime(180, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            60,
+            audioContext.currentTime + 0.25
+        );
+    } else if (type === "level") {
+        oscillator.type = "square";
+        oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1000,
+            audioContext.currentTime + 0.2
+        );
+    } else if (type === "gameover") {
+        oscillator.type = "sawtooth";
+        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            80,
+            audioContext.currentTime + 0.5
+        );
+    }
+
+    gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        audioContext.currentTime + 0.4
+    );
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.4);
+}
 
 // Nilai awal permainan
 let score = 0;
@@ -39,12 +91,10 @@ let lives = 3;
 let level = 1;
 let combo = 0;
 
-
 // Posisi awal pesawat dan status game
 let playerX = 50;
 let isPlaying = false;
 let isPaused = false;
-
 
 // Menyimpan objek meteor dan koin
 let objects = [];
@@ -54,14 +104,11 @@ let spawnTimer = 0;
 let coinTimer = 0;
 let animationId;
 
-
 // Mengambil high score yang tersimpan di browser
 let highScore = Number(localStorage.getItem("neonDodgeHighScore")) || 0;
 
-
 // Menampilkan high score
 highScoreElement.textContent = highScore;
-
 
 // Menyimpan status tombol kiri dan kanan
 const keys = {
@@ -69,9 +116,11 @@ const keys = {
     right: false
 };
 
-
 // FUNGSI MEMULAI GAME
 function startGame() {
+    // Mengaktifkan audio setelah tombol Start/Restart ditekan
+    audioContext.resume();
+
     // Mengembalikan nilai game ke kondisi awal
     score = 0;
     lives = 3;
@@ -108,7 +157,6 @@ function startGame() {
     animationId = requestAnimationFrame(gameLoop);
 }
 
-
 // GAME LOOP
 // Fungsi yang terus menjalankan proses game
 function gameLoop(time) {
@@ -140,7 +188,6 @@ function gameLoop(time) {
     animationId = requestAnimationFrame(gameLoop);
 }
 
-
 // MENGATUR PERGERAKAN PESAWAT
 function updatePlayer() {
     const speed = 0.65;
@@ -162,7 +209,6 @@ function updatePlayer() {
     player.style.left = `${playerX}%`;
 }
 
-
 // MENGATUR KEMUNCULAN METEOR DAN KOIN
 function spawnObjects(deltaTime) {
     spawnTimer += deltaTime;
@@ -183,7 +229,6 @@ function spawnObjects(deltaTime) {
         coinTimer = 0;
     }
 }
-
 
 // MEMBUAT METEOR
 function spawnMeteor() {
@@ -217,7 +262,6 @@ function spawnMeteor() {
     });
 }
 
-
 // MEMBUAT KOIN
 function spawnCoin() {
     const coin = document.createElement("div");
@@ -245,23 +289,19 @@ function spawnCoin() {
     });
 }
 
-
 // MENGGERAKKAN METEOR DAN KOIN
 function updateObjects(deltaTime) {
     const gameHeight = gameArea.clientHeight;
 
     objects.forEach((object, index) => {
-
         // Mengubah posisi objek ke bawah
         object.y += object.speed * deltaTime / 1000;
 
         // Memperbarui posisi objek di layar
         object.element.style.top = `${object.y}px`;
 
-
         // Mengecek apakah objek bertabrakan dengan pesawat
         if (checkCollision(object)) {
-
             // Jika meteor mengenai pesawat
             if (object.type === "meteor") {
                 hitMeteor(object);
@@ -277,7 +317,6 @@ function updateObjects(deltaTime) {
             return;
         }
 
-
         // Jika objek sudah melewati bagian bawah game
         if (object.y > gameHeight + 80) {
             object.element.remove();
@@ -291,7 +330,6 @@ function updateObjects(deltaTime) {
         }
     });
 }
-
 
 // MENGECEK TABRAKAN
 function checkCollision(object) {
@@ -312,11 +350,13 @@ function checkCollision(object) {
     );
 }
 
-
 // KETIKA PESAWAT TERKENA METEOR
 function hitMeteor(object) {
     // Mengurangi nyawa
     lives--;
+
+    // Memainkan suara saat terkena meteor
+    playSound("hit");
 
     // Combo kembali menjadi 0
     combo = 0;
@@ -343,11 +383,13 @@ function hitMeteor(object) {
     }
 }
 
-
 // KETIKA PESAWAT MENGAMBIL KOIN
 function collectCoin(object) {
     // Menambah combo
     combo++;
+
+    // Memainkan suara saat mengambil coin
+    playSound("coin");
 
     // Menghitung bonus berdasarkan combo
     const bonus = 15 + combo * 5;
@@ -368,7 +410,6 @@ function collectCoin(object) {
     updateScore();
 }
 
-
 // MEMPERBARUI SCORE DAN LEVEL
 function updateScore() {
     scoreElement.textContent = score;
@@ -381,11 +422,13 @@ function updateScore() {
         level = newLevel;
         levelElement.textContent = level;
 
+        // Memainkan suara saat naik level
+        playSound("level");
+
         // Menampilkan animasi level naik
         showLevelUp();
     }
 }
-
 
 // MENAMPILKAN BONUS COMBO
 function showCombo(points) {
@@ -401,7 +444,6 @@ function showCombo(points) {
     comboElement.classList.add("show");
 }
 
-
 // MENAMPILKAN LEVEL UP
 function showLevelUp() {
     levelUpElement.textContent = `LEVEL ${level} 🚀`;
@@ -415,7 +457,6 @@ function showLevelUp() {
     // Menjalankan animasi level up
     levelUpElement.classList.add("show");
 }
-
 
 // MEMBUAT EFEK LEDAKAN / PARTIKEL
 function createExplosion(x, y) {
@@ -455,11 +496,13 @@ function createExplosion(x, y) {
     }
 }
 
-
 // MENGAKHIRI GAME
 function endGame() {
     // Menghentikan status permainan
     isPlaying = false;
+
+    // Memainkan suara Game Over
+    playSound("gameover");
 
     // Menghentikan game loop
     cancelAnimationFrame(animationId);
@@ -481,7 +524,6 @@ function endGame() {
     // Menampilkan layar Game Over
     gameOverScreen.classList.remove("hidden");
 }
-
 
 // MENGATUR PAUSE / LANJUT GAME
 function togglePause() {
@@ -511,22 +553,18 @@ function togglePause() {
     }
 }
 
-
 // Mengatur tombol kiri
 function setLeft(value) {
     keys.left = value;
 }
-
 
 // Mengatur tombol kanan
 function setRight(value) {
     keys.right = value;
 }
 
-
 // KONTROL KEYBOARD
 document.addEventListener("keydown", event => {
-
     // Arrow Left atau A untuk bergerak ke kiri
     if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
         keys.left = true;
@@ -543,10 +581,8 @@ document.addEventListener("keydown", event => {
     }
 });
 
-
 // Ketika tombol keyboard dilepas
 document.addEventListener("keyup", event => {
-
     // Menghentikan gerakan ke kiri
     if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
         keys.left = false;
@@ -558,7 +594,6 @@ document.addEventListener("keyup", event => {
     }
 });
 
-
 // KONTROL MOUSE
 leftBtn.addEventListener("mousedown", () => setLeft(true));
 leftBtn.addEventListener("mouseup", () => setLeft(false));
@@ -567,7 +602,6 @@ leftBtn.addEventListener("mouseleave", () => setLeft(false));
 rightBtn.addEventListener("mousedown", () => setRight(true));
 rightBtn.addEventListener("mouseup", () => setRight(false));
 rightBtn.addEventListener("mouseleave", () => setRight(false));
-
 
 // KONTROL TOUCHSCREEN
 leftBtn.addEventListener("touchstart", event => {
@@ -590,42 +624,10 @@ rightBtn.addEventListener("touchend", event => {
     setRight(false);
 });
 
-
 // TOMBOL START DAN RESTART
 startBtn.addEventListener("click", startGame);
 restartBtn.addEventListener("click", startGame);
 
-
 // TOMBOL PAUSE DAN CONTINUE
 pauseBtn.addEventListener("click", togglePause);
 continueBtn.addEventListener("click", togglePause);
-
-// SISTEM SUARA SEDERHANA
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-function playSound(type) {
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    if (type === "coin") {
-        oscillator.frequency.value = 800;
-    } else if (type === "hit") {
-        oscillator.frequency.value = 150;
-    } else if (type === "level") {
-        oscillator.frequency.value = 1000;
-    } else if (type === "gameover") {
-        oscillator.frequency.value = 200;
-    }
-
-    oscillator.start();
-    gain.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-        0.01,
-        audioContext.currentTime + 0.3
-    );
-
-    oscillator.stop(audioContext.currentTime + 0.3);
-}
